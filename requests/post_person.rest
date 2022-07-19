@@ -1,7 +1,7 @@
-POST http://localhost:3001/api/persons
+POST https://stormy-anchorage-19422.herokuapp.com/api/persons
 Content-Type: application/json
 
 {
-    "name": "pepe",
+    "name": "Pepe",
     "number": "123"
 }
