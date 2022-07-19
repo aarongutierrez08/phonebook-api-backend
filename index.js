@@ -73,11 +73,10 @@ const generateId = () => {
     return maxId + 1
   }
 */
-/*
+
 function random(min, max) {
     return Math.floor((Math.random() * (max - min + 1)) + min);
 }
-*/
 
 app.post('/api/persons', (request, response) => {
     const body = request.body
@@ -97,7 +96,7 @@ app.post('/api/persons', (request, response) => {
     }
 
     const person = {
-      //id: random(4, 1000),
+      id: random(4, 1000),
       name: body.name,
       number: body.number
     }
