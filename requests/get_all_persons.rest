@@ -1,2 +1,2 @@
-GET https://stormy-anchorage-19422.herokuapp.com/api/persons
+GET http://localhost:3001/api/persons
 Content-Type: application/json
