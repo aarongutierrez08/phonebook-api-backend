@@ -57,7 +57,7 @@ app.delete('/api/persons/:id', (request, response, next) => {
 
 app.post('/api/persons', async (request, response, next) => {
   const body = request.body
-
+  /*
   if (!body.name) {
     console.log('name missing')
     return response.status(400).json({ 
@@ -70,6 +70,7 @@ app.post('/api/persons', async (request, response, next) => {
       error: 'number missing'
     })
   }
+  */
 
   const person = new Person({
     name: body.name,
@@ -103,6 +104,8 @@ const errorHandler = (error, request, reponse, next) => {
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
   }
 
   next(error)
@@ -115,13 +118,6 @@ const unknownEndpoint = (request, response) => {
 }
 
 app.use(unknownEndpoint)
-/*
-const badObject = (request, response) => {
-  response.status(200).send({ error: 'badObject' })
-}
-
-app.use(badObject)
-*/    
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
