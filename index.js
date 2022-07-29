@@ -4,7 +4,6 @@ const cors = require('cors')
 const app = express()
 require('dotenv').config()
 const Person = require('./models/person')
-const { response } = require('express')
 
 app.use(express.json())
 app.use(express.static('build'))
@@ -84,6 +83,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     })
     .catch(error => next(error))
 })
+
 
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
