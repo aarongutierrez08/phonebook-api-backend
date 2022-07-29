@@ -27,10 +27,17 @@ const newPerson = new Person({
 
 if (process.argv.length == 4) {
 
-    newPerson.save().then(result => {
-        console.log(result)
-        console.log(`added ${newName} with number ${newNumber} to phonebook`)
-        mongoose.connection.close()
-    })
+    newPerson.save()
+        .then(result => {
+            console.log(result.toJSON())
+            console.log(`added ${newName} with number ${newNumber} to phonebook`)
+            mongoose.connection.close()
+        })
+        .catch((error) => {
+            console.log({
+                message: error._message,
+                errors: error.errors
+            })
+        })
 } 
 
