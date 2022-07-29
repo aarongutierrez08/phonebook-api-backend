@@ -12,25 +12,26 @@ app.use(morgan(':method :url :status :res[content-length] :response-time ms :bod
 app.use(cors())
 
 app.get('/', (request, response) => {
-    response.send('<h1>PHONEBOOK</h1>')
+  response.send('<h1>PHONEBOOK</h1>')
 })
 
 app.get('/info', async (request, response, next) => {
-  const totalPersons = await Person.find({})
-                         .then(persons => persons.length)
-                         .catch(error => next(error))
+  const totalPersons =
+  await Person.find({})
+    .then(persons => persons.length)
+    .catch(error => next(error))
 
   response.send(
-      `<p>Phonebook has info for ${totalPersons} people</p>
-       <p>${new Date()}</p>`
-    )
+    `<p>Phonebook has info for ${totalPersons} people</p>
+     <p>${new Date()}</p>`
+  )
 })
-  
-app.get('/api/persons', (request, response) => {
+
+app.get('/api/persons', (request, response, next) => {
   Person.find({})
     .then(persons => {
       response.json(persons)
-  })
+    })
     .catch(error => next(error))
 })
 
@@ -48,7 +49,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
@@ -71,7 +72,7 @@ app.post('/api/persons', (request, response, next) => {
 
 app.put('/api/persons/:id', (request, response, next) => {
   const body = request.body
-  
+
   const person = {
     name: body.name,
     number: body.number
@@ -107,5 +108,5 @@ app.use(unknownEndpoint)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+  console.log(`Server running on port ${PORT}`)
 })
